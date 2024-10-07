@@ -1,0 +1,110 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drupal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: drupal
+  template:
+    metadata:
+      labels:
+        app: drupal
+    spec:
+      initContainers:
+      - name: fix-permissions
+        image: alpine
+        command: ['sh', '-c', 'chmod -R 775 /var/www/html/sites/default/files']
+        volumeMounts:
+        - name: drupal-files
+          mountPath: /var/www/html/sites/default/files
+        securityContext:
+          runAsUser: 0  # Run as root
+      containers:
+      - name: drupal
+        image: 624544955932.dkr.ecr.us-west-2.amazonaws.com/mahesh-drupal-img:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: drupal-files
+          mountPath: /var/www/html/sites/default/files  # Mount EFS here
+        envFrom:
+        - secretRef:
+            name: rds-credentials
+      volumes:
+      - name: drupal-files
+        persistentVolumeClaim:
+          claimName: drupal-files  # PVC pointing to the EFS volume
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: drupal-service
+spec:
+  selector:
+    app: drupal
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: ClusterIP
+
+
+#########################################################################################################
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: drupal
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: drupal
+#   template:
+#     metadata:
+#       labels:
+#         app: drupal
+#     spec:
+#       initContainers:
+#       - name: fix-permissions
+#         image: alpine
+#         command: ['sh', '-c', 'chown -R 1000:1000 /var/www/html/sites/default/files && chmod -R 775 /var/www/html/sites/default/files']
+#         volumeMounts:
+#         - name: drupal-files
+#           mountPath: /var/www/html/sites/default/files
+#         securityContext:
+#           runAsUser: 0  # Run as root
+#       containers:
+#       - name: drupal
+#         image: 624544955932.dkr.ecr.us-west-2.amazonaws.com/mahesh-drupal-img:latest
+#         ports:
+#         - containerPort: 80
+#         volumeMounts:
+#         - name: drupal-files
+#           mountPath: /var/www/html/sites/default/files  # Mount EFS here
+#         envFrom:
+#         - secretRef:
+#             name: rds-credentials
+#       volumes:
+#       - name: drupal-files
+#         persistentVolumeClaim:
+#           claimName: drupal-files # PVC pointing to the EFS volume
+
+# ---
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: drupal-service
+# spec:
+#   selector:
+#     app: drupal
+#   ports:
+#   - protocol: TCP
+#     port: 80
+#     targetPort: 80
+#   type: ClusterIP
+

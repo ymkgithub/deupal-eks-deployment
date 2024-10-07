@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: drupal-ingress
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - drupal11.bicsglobal.com
+    secretName: bics-secret
+  rules:
+  - host: drupal11.bicsglobal.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: drupal-service
+            port:
+              number: 80
