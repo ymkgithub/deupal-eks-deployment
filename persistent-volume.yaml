@@ -6,7 +6,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: ymk-efs
+  storageClassName: efs
   resources:
     requests:
       storage: 2Gi # Don't matter, it's elastic
