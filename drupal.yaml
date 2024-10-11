@@ -15,7 +15,7 @@ spec:
       initContainers:
       - name: fix-permissions
         image: alpine
-        command: ['sh', '-c', 'chmod -R 775 /var/www/html/sites/default/files', 'mkdir -p /var/www/html/sites/default/files/config_hwZaY6KpGbQN9hcZAHxzBIaVWqzb2Pkz2gilmq4wNKGu7wfCPwO-tpdxRklyX_vZZ6u6SRPynQ/sync']
+        command: ['sh', '-c', 'chmod -R 775 /var/www/html/sites/default/files']
         volumeMounts:
         - name: ymk-drupal-files
           mountPath: /var/www/html/sites/default/files
