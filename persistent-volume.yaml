@@ -2,11 +2,22 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: drupal-files
+  name: ymk-drupal-files
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: efs
+  storageClassName: ymk-efs
   resources:
     requests:
-      storage: 5Gi # Don't matter, it's elastic
+      storage: 2Gi # Don't matter, it's elastic
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: drupal-files
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: efs
+#   resources:
+#     requests:
+#       storage: 5Gi # Don't matter, it's elastic
