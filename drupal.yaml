@@ -30,6 +30,16 @@ spec:
         - name: ymk-drupal-files
           mountPath: /var/www/html/sites/default/files  # Mount EFS here
         envFrom:
+        - name: REDIS_HOST
+          valueFrom:
+            secretKeyRef:
+              name: redis-credentials
+              key: REDIS_HOST
+        - name: REDIS_PORT
+          valueFrom:
+            secretKeyRef:
+              name: redis-credentials
+              key: REDIS_PORT
         - secretRef:
             name: rds-credentials
       volumes:
