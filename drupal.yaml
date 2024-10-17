@@ -29,20 +29,11 @@ spec:
         volumeMounts:
         - name: ymk-drupal-files
           mountPath: /var/www/html/sites/default/files  # Mount EFS here
-        env:
-        - name: REDIS_HOST
-          valueFrom:
-            secretKeyRef:
-              name: redis-credentials
-              key: REDIS_HOST
-        - name: REDIS_PORT
-          valueFrom:
-            secretKeyRef:
-              name: redis-credentials
-              key: REDIS_PORT
         envFrom:
         - secretRef:
             name: rds-credentials
+        - secretRef:
+            name: redis-credentials
       volumes:
       - name: ymk-drupal-files
         persistentVolumeClaim:
