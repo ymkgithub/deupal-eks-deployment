@@ -15,7 +15,7 @@ spec:
       initContainers:
       - name: fix-permissions
         image: alpine
-        command: ['sh', '-c', 'chmod -R 775 /var/www/html/sites/default/files', 'vendor/bin/drush cr', 'vendor/bin/drush config-set system.performance css.preprocess 0 -y', 'vendor/bin/drush config-set system.performance js.preprocess 0 -y']
+        command: ['sh', '-c', 'chmod -R 775 /var/www/html/sites/default/files', 'vendor/bin/drush cr', 'vendor/bin/drush config-set system.performance css.preprocess 0 -y', 'vendor/bin/drush config-set system.performance js.preprocess 0 -y', 'vendor/bin/drush en redis -y']
         volumeMounts:
         - name: ymk-drupal-files
           mountPath: /var/www/html/sites/default/files
