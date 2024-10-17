@@ -29,11 +29,21 @@ spec:
         volumeMounts:
         - name: ymk-drupal-files
           mountPath: /var/www/html/sites/default/files  # Mount EFS here
+        env:
+            - name: REDIS_HOST
+              value: "mahesh-redis-cache.utkvm6.ng.0001.usw2.cache.amazonaws.com"  # Replace with your Redis endpoint
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_PASSWORD
+              value: ""  # Leave empty since no password is configured
+            - name: REDIS_DATABASE
+              value: "0"
+
         envFrom:
         - secretRef:
             name: rds-credentials
-        - secretRef:
-            name: redis-credentials
+        # - secretRef:
+        #     name: redis-credentials
       volumes:
       - name: ymk-drupal-files
         persistentVolumeClaim:
