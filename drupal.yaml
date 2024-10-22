@@ -32,8 +32,8 @@ spec:
         envFrom:
         - secretRef:
             name: rds-credentials
-        - secretRef:
-            name: redis-credentials
+        # - secretRef:
+        #     name: redis-credentials
       volumes:
       - name: ymk-drupal-files
         persistentVolumeClaim:
