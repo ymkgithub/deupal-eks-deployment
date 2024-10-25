@@ -17,7 +17,7 @@ spec:
         # image: alpine
         # command: ['sh', '-c', 'chmod -R 775 /var/www/html/sites/default/files', 'vendor/bin/drush cr', 'vendor/bin/drush config-set system.performance css.preprocess 0 -y', 'vendor/bin/drush config-set system.performance js.preprocess 0 -y', 'vendor/bin/drush en redis -y']
         image: 624544955932.dkr.ecr.us-west-2.amazonaws.com/IMG
-        command: ["/bin/bash", "-c", 'chmod -R 775 /var/www/html/sites/default/files',"/usr/local/bin/disable_aggregation.sh"]
+        command: ["/bin/bash", "-c", 'chmod -R 775 /var/www/html/sites/default/files',"mkdir -p sites/default/files/config_hwZaY6KpGbQN9hcZAHxzBIaVWqzb2Pkz2gilmq4wNKGu7wfCPwO-tpdxRklyX_vZZ6u6SRPynQ/sync", /usr/local/bin/disable_aggregation.sh"]
         volumeMounts:
         - name: ymk-drupal-files
           mountPath: /var/www/html/sites/default/files
