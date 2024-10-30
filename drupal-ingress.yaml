@@ -23,7 +23,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: monitoring-kube-prometheus-prometheus
+            name: prometheus-kube-prometheus-prometheus
             namespace: monitoring
             port:
               number: 9090
@@ -31,10 +31,10 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: monitoring-grafana
+            name: prometheus-grafana
             namespace: monitoring
             port:
-              number: 3000
+              number: 80
       - path: /alertmanager
         pathType: Prefix
         backend:
