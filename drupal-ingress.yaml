@@ -40,7 +40,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: prometheus-kube-prometheus-prometheus
+            name: prometheus-operated
             port:
               number: 9090
 
@@ -64,9 +64,10 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: prometheus-grafana
+            name: monitoring-grafana
             port:
-              number: 80
+              - port: 3000
+                targetPort: 80
 
 ---
 apiVersion: networking.k8s.io/v1
